@@ -1,5 +1,6 @@
 ---
 title: "Probability Theory"
+author: "Rithika Rao Dodda"
 ---
 # Assignment 1
 

@@ -1,7 +1,69 @@
 ---
 title: "Regression and Statistical Inference"
+author: "Rithika Rao Dodda"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Assignmnet
+
+```{r}
+library(tidyverse)
+```
+```{r}
+car_data <- readRDS("Causal_Data_Science_Data/car_prices.rds")
+df_1=data.frame(car_data)
+```
+```{r}
+# 1
+dim(df_1)
+```
+There are 181 rows and 22 columns in the data file.
+
+2. Using appropriate commands to get a more detailed look at the data.
+
+```{r}
+head(df_1)
+```
+```{r}
+glimpse(df_1)
+```
+```{r}
+summary(df_1)
+```
+The data types present are character and numeric data type.
+
+3. Linear regression
+```{r}
+lm_all_factors <- lm(price ~ ., data = df_1)
+summary(lm_all_factors)
+```
+All factors with a p-value less than 0.05 are relevant for the pricing of a car like carwidth, enginetypeohc, enginetypeohcv and enginesize  so on.
+
+4. Choosing one regressor
+```{r}
+lm_one <- lm(price ~ enginesize, data = df_1)
+summary(lm_one)
+```
+
+4.1 The regressor used was enginesize and it belongs to the numeric variables (discrete/continous).
+
+4.2 As our estimate is positive (170.064), we have a positive effect. As a result increasing the enginesize would increase price of the car.
+
+4.3 Yes, it  is satistically significant as the p value is lower than the significance level (0.05).
+
+5. Add a variable seat_heating to the data
+```{r}
+df_1 %>% mutate(seatheating = TRUE)
+```
+```{r}
+# Changing the variables from logical variables to numerical variables
+df_2<- df_1 %>% mutate(seatheating = 1)
+df_2
+```
+```{r}
+# New regression
+lm_new_variable <- lm(price ~ seatheating , data = df_2)
+summary(lm_new_variable)
+```
+There is no relation between seat heating and pricing as there is no coefficient present in the new regression. If there is False value there might be coefficient value.
+
+

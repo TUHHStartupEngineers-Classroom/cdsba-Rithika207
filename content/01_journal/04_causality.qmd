@@ -1,7 +1,35 @@
 ---
 title: "Causality"
+author: "Rithika Rao Dodda"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Assignment
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+```{r}
+# Create two unrelated variables
+set.seed(789)
+x <- rnorm(20)
+y <- sin(x) + rnorm(20, sd = 0.2)
+```
+
+```{r}
+# Create a dataframe
+data <- data.frame(x = x, y = y)
+```
+```{r}
+# Create a scatter plot with a smooth line
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "green") +
+  labs(title = "Spurious Correlation",
+       x = "Variable X",
+       y = "Variable Y") +
+  theme_minimal()
+```
+
+
+
