@@ -1,7 +1,74 @@
 ---
 title: "Directed Acyclic Graphs"
+author: "Rithika Rao Dodda"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+```{r}
+# Load necessary Libraries
+library(tidyverse)
+library(dagitty)
+library(ggdag)
+```
+
+1. DAG for Parking Spots
+```{r}
+Parkingspots <- dagify(
+  ParkingSpots ~ Location,
+  Sales ~ Location,
+  Sales ~ ParkingSpots,
+  coords = list(x = c(Sales = 3, Location = 2, ParkingSpots = 1),
+                y = c(Sales = 0, Location = 1, ParkingSpots = 0))
+)
+# Plot DAG
+ggdag(Parkingspots, use_labels = "name", text =  F) + theme_dag()
+```
+
+When the store is located within the city, no parking spots are required because customers approach the store directly and do not need to arrange their visit. As a result, the sales depend on the location. However when the store is located outside of the city, parking spots are required which I believe has a direct impact on sales.
+
+2. Regression
+```{r}
+# Load the file
+car_prices <- readRDS("Causal_Data_Science_Data/customer_sat.rds")
+# Create a Data Frame
+df1=data.frame(car_prices)
+```
+
+2.1 Regress satisfaction on follow_ups 
+```{r}
+#lm_sf is the regresssion of satisfaction on follow_ups
+lm_sf <- lm(satisfaction ~ follow_ups , data = df1)
+summary(lm_sf)
+```
+
+2.2 Regress satisfaction on follow_ups and account for subscription
+```{r}
+#lm_sfa is the regresssion of satisfaction on follow_ups and account for subscription
+lm_sfa <- lm(satisfaction ~ follow_ups + subscription , data = df1)
+summary(lm_sfa)
+```
+
+
+3. Comparing the coefficients: 
+
+In the first case, satisfaction on follow_ups are negatively correlated which suggests that the increase in satisfaction with the product and service will decrease the follow_up calls to the clients.
+
+In the second case, satisfaction on follow_ups which accounts for subscription is highly correlated premium subscription levels than elite subscription levels.
+
+4 Plot the data
+```{r}
+# Not conditioning on subscription
+subscription_not_cond <- ggplot(df1, aes(x = satisfaction, y = follow_ups)) +
+  geom_point(alpha = .8) +
+  stat_smooth(method = "lm", se = F)
+
+# Conditioning on subscription 
+subscription_cond <- ggplot(df1, aes(x = satisfaction, y = follow_ups, color = subscription)) +
+  geom_point(alpha = .8) +
+  stat_smooth(method = "lm", se = F) +
+  theme(legend.position = "right")
+
+# Plot both plots
+subscription_not_cond
+subscription_cond
+```
+
