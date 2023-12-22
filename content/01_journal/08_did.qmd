@@ -1,7 +1,75 @@
 ---
 title: "Difference-in-Differences"
+author: "Rithika Rao Dodda"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+```{r}
+# Load the file
+hospital_data <- readRDS("Causal_Data_Science_Data/hospdd.rds")
+# Create a Data Frame
+df_hd=data.frame(hospital_data)
+```
+
+
+```{r}
+# Convert month to a numeric variable
+df_hd$month <- as.numeric(as.character(df_hd$month))
+# Create a binary indicator for the post-treatment period
+df_hd$treatment <- ifelse(df_hd$month >= 4, 1, 0)  # Assuming treatment occurred after month 3
+# Function to calculate mean manually
+calculate_manual_mean <- function(x) {
+  if (length(x) == 0) {
+    return(0)  # Return NA if there are no observations
+  }
+  sum_value <- sum(x)
+  count_value <- length(x)
+  return(sum_value / count_value)
+}
+
+mean_satisfaction_control_before <- df_hd %>%
+  filter(procedure == 0, treatment == 0) %>%
+  pull(satis) %>%
+  calculate_manual_mean()
+
+mean_satisfaction_treated_before <- df_hd %>%
+  filter(procedure == 1, treatment == 0) %>%
+  pull(satis) %>%
+  calculate_manual_mean()
+
+mean_satisfaction_control_after <- df_hd %>%
+  filter(procedure == 0, treatment == 1) %>%
+  pull(satis) %>%
+  calculate_manual_mean()
+
+mean_satisfaction_treated_after <- df_hd %>%
+  filter(procedure == 1, treatment == 1) %>%
+  pull(satis) %>%
+  calculate_manual_mean()
+
+# Print the results
+cat("Mean Satisfaction for Control Hospitals Before Treatment:", mean_satisfaction_control_before, "\n")
+cat("Mean Satisfaction for Treated Hospitals Before Treatment:", mean_satisfaction_treated_before, "\n")
+cat("Mean Satisfaction for Control Hospitals After Treatment:", mean_satisfaction_control_after, "\n")
+cat("Mean Satisfaction for Treated Hospitals After Treatment:", mean_satisfaction_treated_after, "\n")
+
+
+```
+
+2. Using a linear regression to compute and estimate:
+```{r}
+# 2.1 Linear regression with month + hospital
+lm_mh <- lm(procedure ~ month + hospital, data = df_hd)
+summary(lm_mh)
+```
+```{r}
+# 2.2 Linear regression as.factor(month) + as.factor(hospital)
+lm_f_mh <- lm(procedure ~ as.factor(month) + as.factor(hospital), data = df_hd)
+summary(lm_f_mh)
+```
+
+In the case of factor function the regression is occurring with every hospital and all the 18 hospitals that introduced new admission procedure has a p-value of 1. So, a regression cannot be performed without this factor function’s help. The other difference is that the factor function gives detailed values of the estimates for all the months and all the hospitals whereas the normal regression is only confined to two coefficients.
