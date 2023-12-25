@@ -1,7 +1,71 @@
 ---
 title: "Regression Discontinuity"
+author: "Rithika Rao Dodda"
 ---
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggdag)
+library(dagitty)
+```
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+```{r}
+# Load the file
+coupon<- readRDS("Causal_Data_Science_Data/coupon.rds")
+# Create a Data Frame
+df1=data.frame(coupon)
+```
+
+```{r}
+# Load the file
+shipping<- readRDS("Causal_Data_Science_Data/shipping.rds")
+# Create a Data Frame
+df2=data.frame(shipping)
+```
+
+1. With half the bandwidth
+```{r}
+# Define cut-off
+c0 = 60
+# Half bandwidth
+bw <- c0 + c(-2.5, 2.5)
+
+# Subsets below and above threshold in specified bandwidth
+df1_bw_below <- df1 %>% filter(days_since_last >= bw[1] & days_since_last < c0)
+df1_bw_above <- df1 %>% filter(days_since_last >= c0 & days_since_last <= bw[2])
+
+df1_bw <- bind_rows(df1_bw_above, df1_bw_below)
+dim(df1_bw)
+```
+
+2.  with double the bandwidth
+```{r}
+# Define cut-off
+c0 = 60
+# Double bandwidth
+bw <- c0 + c(-10, 10)
+
+# Subsets below and above threshold in specified bandwidth
+df1_bw_below <- df1 %>% filter(days_since_last >= bw[1] & days_since_last < c0)
+df1_bw_above <- df1 %>% filter(days_since_last >= c0 & days_since_last <= bw[2])
+
+df1_bw <- bind_rows(df1_bw_above, df1_bw_below)
+dim(df1_bw)
+```
+
+```{r}
+# Density test
+# Check for continuous density along running variable. Manipulations could 
+# lead to running variable being "crowded" right after cutoff.
+library(rddensity)
+rddd <- rddensity(df2$purchase_amount, c = 30)
+summary(rddd)
+```
+
+3. Using a plot to confirm the argument.
+```{r}
+# Visually check continuity at running variable
+rdd_plot <- rdplotdensity(rddd, df2$purchase_amount, plotN = 100)
+```
+
+As they did not overlap, we would have to suspect some kind of manipulation around the cut-off and could not use RDD to obtain valid results.
