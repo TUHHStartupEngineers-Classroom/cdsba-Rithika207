@@ -1,7 +1,10 @@
 ---
 title: "Directed Acyclic Graphs"
 author: "Rithika Rao Dodda"
+number-sections: false
 ---
+
+# Assignment
 
 ```{r}
 # Load necessary Libraries

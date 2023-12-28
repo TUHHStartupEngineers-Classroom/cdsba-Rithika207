@@ -1,7 +1,9 @@
 ---
 title: "Statistical Concepts"
 author: "Rithika Rao Dodda"
+number-sections: false
 ---
+# Assignment
 
 ```{r}
 # Load the file
@@ -47,19 +49,19 @@ cor(df)
 
 5. Compute the Conditional Expected value
 ```{r}
-# 1
+# 1 Creating a subset for finding the mean of income for age below 18
 age_18 <- subset(df, age<=18, select = c(age,income))
 mean(age_18$income)
 ```
 
 ```{r}
-# 2
+# 2 Creating a subset for finding the mean of income for age above 65
 age_65 <- subset(df, age>=65, select = c(age,income))
 mean(age_65$income)
 ```
 
 ```{r}
-# 3
+# 3 Creating subset to find the mean income between age 18 and 65
 age_18_65 <- subset(df, age>=18 & age<65, select = c(age,income))
 mean(age_18_65$income)
 ```

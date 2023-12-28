@@ -1,8 +1,43 @@
 ---
 title: "Probability Theory"
 author: "Rithika Rao Dodda"
+number-sections: false
 ---
 # Assignment 1
+
+```{r}
+# Probability of change in scope S
+S<-0.3
+
+# Probability (T | S)
+T_S<-0.2
+
+# Probability (T | ¬S)
+T_NOT_S<-0.6
+
+
+# Calculate the remaining values based upon the 3 variables above
+NOT_T_S<-1-T_S
+NOT_S<-1-S
+NOT_T_NOT_S<-1-T_NOT_S
+
+#Joint Probabilities of S and T, S and notT, notS and T, notS and notT
+S_AND_T<-S*T_S
+S_AND_NOT_T<-S*NOT_T_S
+NOT_S_AND_T <- NOT_S*T_NOT_S
+NOT_S_AND_NOT_T <- NOT_S*NOT_T_NOT_S
+
+# Sum of probabilities
+sum_of_probabilites <- S_AND_T + S_AND_NOT_T + NOT_S_AND_T + NOT_S_AND_NOT_T
+
+# Displaying the results
+cat("P(T ∩ S):", S_AND_T, "\n")
+cat("P(T ∩ S'): ", NOT_S_AND_T , "\n")
+cat("P(T' ∩ S):", S_AND_NOT_T , "\n")
+cat("P(T' ∩ S'): ", NOT_S_AND_NOT_T, "\n")
+cat("Sum of probabilities:", sum_of_probabilites, "\n")
+
+```
 
 ```{r}
 # Given probabilities
@@ -17,15 +52,7 @@ P_T_AND_S_NOT <- P_T * P_S_NOT
 P_T_NOT_AND_S <- P_T_NOT * P_S
 P_T_NOT_AND_S_NOT <- P_T_NOT * P_S_NOT
 
-# Sum of probabilities
-sum_of_probabilites <- P_T_AND_S + P_T_AND_S_NOT + P_T_NOT_AND_S + P_T_NOT_AND_S_NOT
 
-# Displaying the results
-cat("P(T ∩ S):", P_T_AND_S, "\n")
-cat("P(T ∩ S'): ", P_T_AND_S_NOT, "\n")
-cat("P(T' ∩ S):", P_T_NOT_AND_S , "\n")
-cat("P(T' ∩ S'): ", P_T_NOT_AND_S_NOT, "\n")
-cat("Sum of probabilities:", sum_of_probabilites, "\n")
 ```
 
 # Assignment 2
@@ -58,6 +85,7 @@ cat("Percentage of customers using only one device:", P_only_one, "\n")
 
 ```
 
+# Assignment 3
 ```{r}
 # Given probabilities
 P_B_A <- 0.97

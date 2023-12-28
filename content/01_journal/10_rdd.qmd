@@ -1,7 +1,10 @@
 ---
 title: "Regression Discontinuity"
 author: "Rithika Rao Dodda"
+number-sections: false
 ---
+# Assignment
+
 ```{r}
 library(tidyverse)
 library(dplyr)

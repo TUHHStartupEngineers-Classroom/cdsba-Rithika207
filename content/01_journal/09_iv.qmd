@@ -1,7 +1,68 @@
 ---
 title: "Instrumental Variables"
+author: "Rithika Rao Dodda"
+number-sections: false
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Assignment
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggdag)
+library(dagitty)
+```
+
+```{r}
+# Load the file
+random_encouragement <- readRDS("Causal_Data_Science_Data/rand_enc.rds")
+# Create a Data Frame
+df=data.frame(random_encouragement)
+```
+
+1. Plot DAG
+```{r}
+iv_expl <- dagify(
+  timeSpent ~ used_ftr,
+  timeSpent ~ Unobserved_Characteristics,
+  used_ftr ~ Unobserved_Characteristics,
+  used_ftr ~ rand_enc,
+  coords = list(x = c(Unobserved_Characteristics = 1, used_ftr = 0, timeSpent = 2, rand_enc = -1),
+                y = c(Unobserved_Characteristics = 1, used_ftr = 0, timeSpent = 0, rand_enc = 0))
+)
+
+ggdag(iv_expl, use_labels = "name", text = F) + theme_dag()
+```
+From my understanding of these relationships from DAG, time spent would be the outcome which depends on the used new feature (used_ftr) would be the treatment variable and randomized encouragement trial (rand_enc) would be instrumental variable. Unobserved Characteristics would effect the time spent and used new feature as it is unobserved we will not use further. 
+
+2. Compute the naive, biased estimate.
+```{r}
+model_biased <- lm(time_spent ~ used_ftr, data = df)
+summary(model_biased)
+```
+
+```{r}
+model_naive <- lm(rand_enc ~ used_ftr, data = df)
+summary(model_naive)
+```
+
+3.
+```{r}
+cor(df) %>% round(2)
+```
+On computing the correlation the assumptions are verified 
+* Random Assignment: The low correlation between rand_enc and other variables supports the effectiveness of random assignment.
+* Exclusion Restriction: The relatively low correlation between rand_enc and time_spent indicates that there may not be strong confounding factors, supporting the exclusion restriction to some extent.
+* Relevance of the Instrument: The positive correlation between rand_enc and used_ftr supports the relevance of the instrument.
+
+Considering these results, instrumental variable estimation seems to be a reasonable approach in this scenario.
+
+4. Compute the IV estimate using 2SLS and compare it to the naive estimate
+```{r}
+library(estimatr)
+model_iv <- iv_robust(time_spent ~ used_ftr | rand_enc, data = df)
+summary(model_iv)
+```
+
+On Computing the IV estimate using 2SLS and comparing it to the naive estimate, If the IV estimate is substantially different from the naive estimate, it indicates potential bias in the naive estimate. In this case, the naive estimate for used_ftr (0.207943) seems to be biased downward.
+

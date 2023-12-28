@@ -1,7 +1,10 @@
 ---
 title: "Difference-in-Differences"
 author: "Rithika Rao Dodda"
+number-sections: false
 ---
+
+# Assignment
 
 ```{r}
 library(tidyverse)

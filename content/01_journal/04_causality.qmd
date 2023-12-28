@@ -1,35 +1,38 @@
 ---
 title: "Causality"
 author: "Rithika Rao Dodda"
+number-sections: false
 ---
 
 # Assignment
 
-```{r}
-library(tidyverse)
-library(ggplot2)
-```
-```{r}
-# Create two unrelated variables
-set.seed(789)
-x <- rnorm(20)
-y <- sin(x) + rnorm(20, sd = 0.2)
-```
+Creating fictional example of a spurious correlation. Suppose we want to show a correlation between the average global temperature and the number of pirates over the years.
 
 ```{r}
-# Create a dataframe
-data <- data.frame(x = x, y = y)
-```
-```{r}
-# Create a scatter plot with a smooth line
-ggplot(data, aes(x = x, y = y)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "green") +
-  labs(title = "Spurious Correlation",
-       x = "Variable X",
-       y = "Variable Y") +
+library(ggplot2)
+
+# Set seed for reproducibility
+set.seed(456)
+
+# Generate fictional data
+years <- seq(1900, 2020, by = 10)
+global_temperature <- 14 + 0.02 * years + rnorm(length(years), mean = 0, sd = 1)
+number_of_pirates <- 5000 - 20 * years + rnorm(length(years), mean = 0, sd = 1000)
+
+# Create a data frame
+data <- data.frame(Year = years, GlobalTemperature = global_temperature, Pirates = number_of_pirates)
+
+# Plot the spurious correlation
+ggplot(data, aes(x = GlobalTemperature, y = Pirates)) +
+  geom_point(color = "green") +
+  geom_smooth(method = "lm", se = FALSE, color = "purple") +
+  labs(title = "Spurious Correlation: Global Temperature vs. Number of Pirates",
+       x = "Global Temperature (°C)",
+       y = "Number of Pirates") +
   theme_minimal()
 ```
+
+In this example, I've generated fictional data where the number of pirates decreases as the global temperature increases. The geom_smooth function adds a linear regression line to the plot, creating the appearance of a correlation.
 
 
 

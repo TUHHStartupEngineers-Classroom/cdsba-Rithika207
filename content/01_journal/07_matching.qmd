@@ -1,7 +1,9 @@
 ---
 title: "Matching and Subclassification"
 author: "Rithika Rao Dodda"
+number-sections: false
 ---
+# Assignment
 
 ```{r}
 # Load packages
@@ -19,11 +21,11 @@ df=data.frame(membership_data)
 
 1. Draw DAG to understand the realtions between variables
 ```{r}
-# Confounding variables are age, sex, prev_avg_purch
+# Confounding variables are age, sex, pre_avg_purch
 purchase<- dagify(
-  card  ~ age + sex + prev_avg_purch, sex ~ age , prev_avg_purch ~ sex, avg_purch ~ card ,
-  coords = list(x = c(age = 1,sex = 2, prev_avg_purch = 3, card = 1.5, avg_purch = 2.5),
-                      y = c(age = 1,sex = 1, prev_avg_purch = 1, card = 2, avg_purch = 2)  )
+  card  ~ age + sex + pre_avg_purch, sex ~ age , pre_avg_purch ~ sex, avg_purch ~ card ,
+  coords = list(x = c(age = 1,sex = 2, pre_avg_purch = 3, card = 1.5, avg_purch = 2.5),
+                      y = c(age = 1,sex = 1, pre_avg_purch = 1, card = 2, avg_purch = 2)  )
 )
 
 ggdag(purchase, use_labels = "name", text = F) + theme_dag()
