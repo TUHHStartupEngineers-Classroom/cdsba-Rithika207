@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Oliver Mork">
+<meta name="author" content="Rithika Rao Dodda">
 
 <title>MyLabJournal - Randomized Controlled Trials</title>
 <style>
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -43,6 +77,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -63,6 +100,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 </head>
@@ -148,7 +188,13 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#assignment" id="toc-assignment" class="nav-link active" data-scroll-target="#assignment">Assignment</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -165,7 +211,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Oliver Mork </p>
+             <p>Rithika Rao Dodda </p>
           </div>
   </div>
     
@@ -176,21 +222,237 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="assignment" class="level1">
+<h1>Assignment</h1>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-1_31193888cdcb907854af225deb7b9a6a">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.4
+#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#&gt; ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+#&gt; ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+#&gt; ✔ purrr     1.0.2     
+#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#&gt; ✖ dplyr::filter() masks stats::filter()
+#&gt; ✖ dplyr::lag()    masks stats::lag()
+#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="callout-title-container flex-fill">
-Note
+</div>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-2_345ed7276e693205f43bd4627da26356">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Load the file</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>abtest_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Causal_Data_Science_Data/abtest_online.rds"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># Create Data Frame</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>df1<span class="ot">=</span><span class="fu">data.frame</span>(abtest_data)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>df<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ip =</span> abtest_data<span class="sc">$</span>ip, <span class="at">chatbot =</span> abtest_data<span class="sc">$</span>chatbot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>Checking whether the covariates are balanced across the groups:</li>
+</ol>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-3_2061c082fa29be6f2e193dec3c0a411b">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>ip <span class="ot">=</span> abtest_data<span class="sc">$</span>ip</span>
+<span id="cb4-2"><a href="#cb4-2"></a>df<span class="sc">$</span>ip <span class="ot">&lt;-</span> <span class="fu">substr</span>(ip, <span class="fu">nchar</span>(ip), <span class="fu">nchar</span>(ip))</span>
+<span id="cb4-3"><a href="#cb4-3"></a>df<span class="sc">$</span>chatbot <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">as.logical</span>(df<span class="sc">$</span>chatbot))</span>
+<span id="cb4-4"><a href="#cb4-4"></a>df<span class="sc">$</span>ipn <span class="ot">=</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>ip)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>df1<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ip =</span> df<span class="sc">$</span>ipn, <span class="at">chatbot =</span> df<span class="sc">$</span>chatbot)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>X <span class="ot">&lt;-</span> <span class="fu">tibble</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-4_4b58d01107ce5a9b75af1272679c0c64">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Define vector of sample sizes</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>sss <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="fu">seq</span>(<span class="dv">500</span>, <span class="dv">1000</span>, <span class="dv">500</span>))</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Create empty lists to store average tables in</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>avg_tbl_ip_lst <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb5-6"><a href="#cb5-6"></a>avg_tbl_chatbot_lst <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb5-7"><a href="#cb5-7"></a>tbl_sampled_lst <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co"># Iterate through sample sizes</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co"># ... for sample size in sample sizes ...</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="cf">for</span> (ss <span class="cf">in</span> sss) {</span>
+<span id="cb5-12"><a href="#cb5-12"></a>  <span class="co"># sample from population</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>  X_sampled <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(X, ss)</span>
+<span id="cb5-14"><a href="#cb5-14"></a>  </span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="co"># perform random assignment</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a>  D <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(ss, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb5-17"><a href="#cb5-17"></a>  </span>
+<span id="cb5-18"><a href="#cb5-18"></a>  <span class="co"># combine characteristics and assignment in one table</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>  tbl_sampled <span class="ot">&lt;-</span> X_sampled <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">treatment =</span> D)</span>
+<span id="cb5-20"><a href="#cb5-20"></a>  </span>
+<span id="cb5-21"><a href="#cb5-21"></a>  <span class="co"># store in list</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a>  tbl_sampled_lst[[<span class="fu">paste</span>(ss)]] <span class="ot">&lt;-</span> tbl_sampled</span>
+<span id="cb5-23"><a href="#cb5-23"></a>  </span>
+<span id="cb5-24"><a href="#cb5-24"></a>  <span class="co"># get average characteristics ...</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a>  <span class="co"># ... for ip</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a>  avg_tbl_ip <span class="ot">&lt;-</span> tbl_sampled <span class="sc">%&gt;%</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a>    <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a>    <span class="fu">summarise</span>(<span class="at">mean_ip =</span> <span class="fu">mean</span>(ip)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-29"><a href="#cb5-29"></a>    ungroup <span class="sc">%&gt;%</span> </span>
+<span id="cb5-30"><a href="#cb5-30"></a>    <span class="fu">add_column</span>(<span class="at">sample_size =</span> ss,</span>
+<span id="cb5-31"><a href="#cb5-31"></a>               <span class="at">variable =</span> <span class="st">"ip"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-32"><a href="#cb5-32"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> treatment,</span>
+<span id="cb5-33"><a href="#cb5-33"></a>                <span class="at">names_prefix =</span> <span class="st">"D_"</span>,</span>
+<span id="cb5-34"><a href="#cb5-34"></a>                <span class="at">values_from =</span> mean_ip) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-35"><a href="#cb5-35"></a>    <span class="fu">mutate</span>(<span class="at">delta_abs =</span> <span class="fu">abs</span>(D_1 <span class="sc">-</span> D_0),</span>
+<span id="cb5-36"><a href="#cb5-36"></a>           <span class="at">delta_rel =</span> delta_abs<span class="sc">/</span>D_0)</span>
+<span id="cb5-37"><a href="#cb5-37"></a>  </span>
+<span id="cb5-38"><a href="#cb5-38"></a>  <span class="co"># store table in list</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a>  avg_tbl_ip_lst[[<span class="fu">paste</span>(ss)]] <span class="ot">&lt;-</span> avg_tbl_ip</span>
+<span id="cb5-40"><a href="#cb5-40"></a>  </span>
+<span id="cb5-41"><a href="#cb5-41"></a>  <span class="co"># ... for chatbot</span></span>
+<span id="cb5-42"><a href="#cb5-42"></a>  avg_tbl_chatbot <span class="ot">&lt;-</span> tbl_sampled <span class="sc">%&gt;%</span></span>
+<span id="cb5-43"><a href="#cb5-43"></a>    <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb5-44"><a href="#cb5-44"></a>    <span class="fu">summarise</span>(<span class="at">mean_chatbot =</span> <span class="fu">mean</span>(chatbot)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-45"><a href="#cb5-45"></a>    ungroup <span class="sc">%&gt;%</span> </span>
+<span id="cb5-46"><a href="#cb5-46"></a>    <span class="fu">add_column</span>(<span class="at">sample_size =</span> ss,</span>
+<span id="cb5-47"><a href="#cb5-47"></a>               <span class="at">variable =</span> <span class="st">"chatbot"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-48"><a href="#cb5-48"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> treatment,</span>
+<span id="cb5-49"><a href="#cb5-49"></a>                <span class="at">names_prefix =</span> <span class="st">"D_"</span>,</span>
+<span id="cb5-50"><a href="#cb5-50"></a>                <span class="at">values_from =</span> mean_chatbot) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-51"><a href="#cb5-51"></a>    <span class="fu">mutate</span>(<span class="at">delta_abs =</span> <span class="fu">abs</span>(D_1 <span class="sc">-</span> D_0),</span>
+<span id="cb5-52"><a href="#cb5-52"></a>           <span class="at">delta_rel =</span> delta_abs<span class="sc">/</span>D_0)</span>
+<span id="cb5-53"><a href="#cb5-53"></a>  </span>
+<span id="cb5-54"><a href="#cb5-54"></a>  <span class="co"># store table in list</span></span>
+<span id="cb5-55"><a href="#cb5-55"></a>  avg_tbl_chatbot_lst[[<span class="fu">paste</span>(ss)]] <span class="ot">&lt;-</span> avg_tbl_chatbot</span>
+<span id="cb5-56"><a href="#cb5-56"></a>}</span>
+<span id="cb5-57"><a href="#cb5-57"></a></span>
+<span id="cb5-58"><a href="#cb5-58"></a><span class="co"># Combine tables to one larger table</span></span>
+<span id="cb5-59"><a href="#cb5-59"></a>avg_ip <span class="ot">&lt;-</span> avg_tbl_ip_lst <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>()</span>
+<span id="cb5-60"><a href="#cb5-60"></a>avg_chatbot <span class="ot">&lt;-</span> avg_tbl_chatbot_lst <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>()</span>
+<span id="cb5-61"><a href="#cb5-61"></a>avgs_tbl <span class="ot">&lt;-</span> avg_ip <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>(avg_chatbot)</span>
+<span id="cb5-62"><a href="#cb5-62"></a></span>
+<span id="cb5-63"><a href="#cb5-63"></a>avgs_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["sample_size"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["variable"],"name":[2],"type":["chr"],"align":["left"]},{"label":["D_0"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["D_1"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["delta_abs"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["delta_rel"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"ip","3":"6.2500000","4":"5.3333333","5":"0.916666667","6":"0.14666667"},{"1":"50","2":"ip","3":"3.7692308","4":"4.4166667","5":"0.647435897","6":"0.17176871"},{"1":"100","2":"ip","3":"4.5555556","4":"4.4727273","5":"0.082828283","6":"0.01818182"},{"1":"500","2":"ip","3":"4.3485477","4":"4.1698842","5":"0.178663548","6":"0.04108580"},{"1":"1000","2":"ip","3":"4.3326653","4":"4.3832335","5":"0.050568202","6":"0.01167138"},{"1":"10","2":"chatbot","3":"0.2500000","4":"0.3333333","5":"0.083333333","6":"0.33333333"},{"1":"50","2":"chatbot","3":"0.6923077","4":"0.5833333","5":"0.108974359","6":"0.15740741"},{"1":"100","2":"chatbot","3":"0.4444444","4":"0.3818182","5":"0.062626263","6":"0.14090909"},{"1":"500","2":"chatbot","3":"0.5103734","4":"0.5521236","5":"0.041750108","6":"0.08180306"},{"1":"1000","2":"chatbot","3":"0.5070140","4":"0.5009980","5":"0.006016024","6":"0.01186560"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>You can delete everything in here and start fresh.</p>
+</div>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-5_3cbca2b3f51290056657c0f46fa6081e">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Plot convergence</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">ggplot</span>(avgs_tbl, <span class="fu">aes</span>(<span class="at">x =</span> sample_size, <span class="at">y =</span> delta_abs)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sample size"</span>, <span class="at">y =</span> <span class="st">"Absolute difference"</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">ggtitle</span>(<span class="st">"Absolute difference of characteristics</span><span class="sc">\n</span><span class="st"> between groups by sample size"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="06_rct_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="06_rct_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Running a regression to find the effect of chat bot on sales:</li>
+</ol>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-6_9ffca09146d43ca520704067dcf55fb0">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>df_reg<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ip =</span> X<span class="sc">$</span>ip, <span class="at">chatbot =</span> X<span class="sc">$</span>chatbot, <span class="at">treatment =</span> X<span class="sc">$</span>chatbot, <span class="at">outcome =</span> avgs_tbl<span class="sc">$</span>delta_abs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-7_6ea67107ae8f0e139d46b883d5d35c1c">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>lm_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(outcome <span class="sc">~</span> treatment, <span class="at">data =</span> df_reg)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">summary</span>(lm_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt; Call:
+#&gt; lm(formula = outcome ~ treatment, data = df_reg)
+#&gt; 
+#&gt; Residuals:
+#&gt;      Min       1Q   Median       3Q      Max 
+#&gt; -0.21260 -0.16804 -0.13432 -0.03848  0.69952 
+#&gt; 
+#&gt; Coefficients:
+#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept) 0.217148   0.013108  16.566   &lt;2e-16 ***
+#&gt; treatment   0.001464   0.018464   0.079    0.937    
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 0.2919 on 998 degrees of freedom
+#&gt; Multiple R-squared:  6.302e-06,  Adjusted R-squared:  -0.0009957 
+#&gt; F-statistic: 0.006289 on 1 and 998 DF,  p-value: 0.9368</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Including interaction</li>
+</ol>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-8_6388cda2492000491bcb50dd7ea4e24f">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>lm_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(outcome <span class="sc">~</span> treatment <span class="sc">*</span> ip <span class="sc">+</span> treatment <span class="sc">*</span> chatbot, <span class="at">data =</span> df_reg)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">summary</span>(lm_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt; Call:
+#&gt; lm(formula = outcome ~ treatment * ip + treatment * chatbot, 
+#&gt;     data = df_reg)
+#&gt; 
+#&gt; Residuals:
+#&gt;      Min       1Q   Median       3Q      Max 
+#&gt; -0.23075 -0.16629 -0.13347 -0.03946  0.72057 
+#&gt; 
+#&gt; Coefficients: (2 not defined because of singularities)
+#&gt;                    Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept)        0.241849   0.026608   9.089   &lt;2e-16 ***
+#&gt; treatment         -0.009212   0.034720  -0.265    0.791    
+#&gt; ip                -0.005084   0.004765  -1.067    0.286    
+#&gt; chatbot                  NA         NA      NA       NA    
+#&gt; treatment:ip       0.001455   0.006685   0.218    0.828    
+#&gt; treatment:chatbot        NA         NA      NA       NA    
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 0.292 on 996 degrees of freedom
+#&gt; Multiple R-squared:  0.001747,   Adjusted R-squared:  -0.001259 
+#&gt; F-statistic: 0.5811 on 3 and 996 DF,  p-value: 0.6275</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Logistic regression</li>
+</ol>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-9_b8ba6463ff04ced82e6e00c2fdd001e8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>model_logistic_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(purchase <span class="sc">~</span> chatbot <span class="sc">+</span> mobile_device <span class="sc">+</span> previous_visit, <span class="at">data =</span> abtest_data, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">summary</span>(model_logistic_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; 
+#&gt; Call:
+#&gt; glm(formula = purchase ~ chatbot + mobile_device + previous_visit, 
+#&gt;     family = "binomial", data = abtest_data)
+#&gt; 
+#&gt; Coefficients:
+#&gt;                   Estimate Std. Error z value Pr(&gt;|z|)    
+#&gt; (Intercept)       -0.22185    0.12347  -1.797  0.07237 .  
+#&gt; chatbotTRUE       -0.96894    0.13564  -7.144 9.09e-13 ***
+#&gt; mobile_deviceTRUE -0.07119    0.14530  -0.490  0.62417    
+#&gt; previous_visit     0.10606    0.03262   3.252  0.00115 ** 
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; (Dispersion parameter for binomial family taken to be 1)
+#&gt; 
+#&gt;     Null deviance: 1329.1  on 999  degrees of freedom
+#&gt; Residual deviance: 1262.2  on 996  degrees of freedom
+#&gt; AIC: 1270.2
+#&gt; 
+#&gt; Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-10_2cd2420b40e6b6c0716ac558348dedc8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># coefficient for chatbot</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>coef_chatbot <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_logistic_reg)[<span class="st">"chatbotTRUE"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="06_rct_cache/html/unnamed-chunk-11_35bdce22d9c4bd2c6bb143355367d77e">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Exponentiate the coefficient to get the odds ratio</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>odds_ratio <span class="ot">&lt;-</span> <span class="fu">exp</span>(coef_chatbot)</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="fu">cat</span>(<span class="st">"Odds Ratio for Chatbot:"</span>, odds_ratio, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; Odds Ratio for Chatbot: 0.3794843</code></pre>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -542,6 +804,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","loop":true,"selector":".lightbox","descPosition":"bottom"});</script>
 
 
 
