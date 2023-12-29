@@ -270,54 +270,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>#&gt; Sum of probabilities: 1</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="01_probability_cache/html/unnamed-chunk-2_2dc5ee1faf31b5738e8610bbedd6182e">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Given probabilities</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>P_T <span class="ot">&lt;-</span> <span class="fl">0.8</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>P_T_NOT <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>P_S <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a>P_S_NOT <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co"># Calculating probabilities</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a>P_T_AND_S <span class="ot">&lt;-</span> P_T <span class="sc">*</span> P_S</span>
-<span id="cb11-9"><a href="#cb11-9"></a>P_T_AND_S_NOT <span class="ot">&lt;-</span> P_T <span class="sc">*</span> P_S_NOT</span>
-<span id="cb11-10"><a href="#cb11-10"></a>P_T_NOT_AND_S <span class="ot">&lt;-</span> P_T_NOT <span class="sc">*</span> P_S</span>
-<span id="cb11-11"><a href="#cb11-11"></a>P_T_NOT_AND_S_NOT <span class="ot">&lt;-</span> P_T_NOT <span class="sc">*</span> P_S_NOT</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="assignment-2" class="level1">
 <h1>Assignment 2</h1>
-<div class="cell" data-hash="01_probability_cache/html/unnamed-chunk-3_c13d0ea1f34417d6f90eb25c622b4ddd">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Given probabilities</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>P_A <span class="ot">&lt;-</span> <span class="fl">0.423</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>P_B <span class="ot">&lt;-</span> <span class="fl">0.278</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a>P_C <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a>P_A_intersect_B <span class="ot">&lt;-</span> <span class="fl">0.073</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a>P_B_intersect_C <span class="ot">&lt;-</span> <span class="fl">0.033</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>P_A_intersect_C <span class="ot">&lt;-</span> <span class="fl">0.088</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a>P_A_intersect_B_intersect_C <span class="ot">&lt;-</span> <span class="fl">0.005</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="co"># Calculate the percentage of customers using all three devices</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a>P_all_three <span class="ot">&lt;-</span> P_A_intersect_B_intersect_C <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co"># Calculate the percentage of customers using at least two devices</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a>P_at_least_two <span class="ot">&lt;-</span> (P_A <span class="sc">+</span> P_B <span class="sc">+</span> P_C <span class="sc">-</span> P_A_intersect_B <span class="sc">-</span> P_B_intersect_C <span class="sc">-</span> P_A_intersect_C <span class="sc">+</span></span>
-<span id="cb12-15"><a href="#cb12-15"></a>                   P_A_intersect_B_intersect_C) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a></span>
-<span id="cb12-17"><a href="#cb12-17"></a><span class="co"># Calculate the percentage of customers using only one device</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a>P_only_one <span class="ot">&lt;-</span> ((P_A <span class="sc">-</span> P_A_intersect_B <span class="sc">-</span> P_A_intersect_C <span class="sc">+</span> P_A_intersect_B_intersect_C) <span class="sc">+</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a>               (P_B <span class="sc">-</span> P_A_intersect_B <span class="sc">-</span> P_B_intersect_C <span class="sc">+</span> P_A_intersect_B_intersect_C) <span class="sc">+</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a>               (P_C <span class="sc">-</span> P_A_intersect_C <span class="sc">-</span> P_B_intersect_C <span class="sc">+</span> P_A_intersect_B_intersect_C)) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb12-21"><a href="#cb12-21"></a></span>
-<span id="cb12-22"><a href="#cb12-22"></a><span class="co"># Print results</span></span>
-<span id="cb12-23"><a href="#cb12-23"></a><span class="fu">cat</span>(<span class="st">"Percentage of customers using all three devices:"</span>, P_all_three, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="01_probability_cache/html/unnamed-chunk-2_e9e116a9e9a50df0960984fb32e8e953">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Given probabilities</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>P_A <span class="ot">&lt;-</span> <span class="fl">0.423</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>P_B <span class="ot">&lt;-</span> <span class="fl">0.278</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>P_C <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>P_A_intersect_B <span class="ot">&lt;-</span> <span class="fl">0.073</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>P_B_intersect_C <span class="ot">&lt;-</span> <span class="fl">0.033</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>P_A_intersect_C <span class="ot">&lt;-</span> <span class="fl">0.088</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>P_A_intersect_B_intersect_C <span class="ot">&lt;-</span> <span class="fl">0.005</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co"># Calculate the percentage of customers using all three devices</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>P_all_three <span class="ot">&lt;-</span> P_A_intersect_B_intersect_C <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co"># Calculate the percentage of customers using at least two devices</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a>P_at_least_two <span class="ot">&lt;-</span> (P_A <span class="sc">+</span> P_B <span class="sc">+</span> P_C <span class="sc">-</span> P_A_intersect_B <span class="sc">-</span> P_B_intersect_C <span class="sc">-</span> P_A_intersect_C <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a>                   P_A_intersect_B_intersect_C) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co"># Calculate the percentage of customers using only one device</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a>P_only_one <span class="ot">&lt;-</span> ((P_A <span class="sc">-</span> P_A_intersect_B <span class="sc">-</span> P_A_intersect_C <span class="sc">+</span> P_A_intersect_B_intersect_C) <span class="sc">+</span></span>
+<span id="cb11-19"><a href="#cb11-19"></a>               (P_B <span class="sc">-</span> P_A_intersect_B <span class="sc">-</span> P_B_intersect_C <span class="sc">+</span> P_A_intersect_B_intersect_C) <span class="sc">+</span></span>
+<span id="cb11-20"><a href="#cb11-20"></a>               (P_C <span class="sc">-</span> P_A_intersect_C <span class="sc">-</span> P_B_intersect_C <span class="sc">+</span> P_A_intersect_B_intersect_C)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb11-21"><a href="#cb11-21"></a></span>
+<span id="cb11-22"><a href="#cb11-22"></a><span class="co"># Print results</span></span>
+<span id="cb11-23"><a href="#cb11-23"></a><span class="fu">cat</span>(<span class="st">"Percentage of customers using all three devices:"</span>, P_all_three, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Percentage of customers using all three devices: 0.5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">cat</span>(<span class="st">"Percentage of customers using at least two devices:"</span>, P_at_least_two, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">cat</span>(<span class="st">"Percentage of customers using at least two devices:"</span>, P_at_least_two, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Percentage of customers using at least two devices: 61.2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">cat</span>(<span class="st">"Percentage of customers using only one device:"</span>, P_only_one, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">cat</span>(<span class="st">"Percentage of customers using only one device:"</span>, P_only_one, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Percentage of customers using only one device: 42.8</code></pre>
 </div>
@@ -325,28 +312,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="assignment-3" class="level1">
 <h1>Assignment 3</h1>
-<div class="cell" data-hash="01_probability_cache/html/unnamed-chunk-4_003be48f7eb3559355f3973c8209245e">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Given probabilities</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>P_B_A <span class="ot">&lt;-</span> <span class="fl">0.97</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>P_B_notA <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a>P_A <span class="ot">&lt;-</span> <span class="fl">0.04</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a>not_P_A <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> P_A</span>
-<span id="cb18-6"><a href="#cb18-6"></a></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="co"># Calculate the probability B</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a>P_B <span class="ot">&lt;-</span> P_B_A <span class="sc">*</span> P_A <span class="sc">+</span> P_B_notA <span class="sc">*</span> not_P_A</span>
-<span id="cb18-9"><a href="#cb18-9"></a><span class="fu">cat</span>(<span class="st">"Probability of B:"</span>, P_B, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="01_probability_cache/html/unnamed-chunk-3_d765f4182b414766134dd0b571fa1b09">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Given probabilities</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>P_B_A <span class="ot">&lt;-</span> <span class="fl">0.97</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>P_B_notA <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>P_A <span class="ot">&lt;-</span> <span class="fl">0.04</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>not_P_A <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> P_A</span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># Calculate the probability B</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>P_B <span class="ot">&lt;-</span> P_B_A <span class="sc">*</span> P_A <span class="sc">+</span> P_B_notA <span class="sc">*</span> not_P_A</span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="fu">cat</span>(<span class="st">"Probability of B:"</span>, P_B, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Probability of B: 0.0484</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Calculate the probability A|B using conditional probability formula</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>P_A_B <span class="ot">&lt;-</span> P_B_A <span class="sc">*</span> P_A <span class="sc">/</span> P_B</span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="fu">cat</span>(<span class="st">"Probability of P_A_B:"</span>, P_A_B, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Calculate the probability A|B using conditional probability formula</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>P_A_B <span class="ot">&lt;-</span> P_B_A <span class="sc">*</span> P_A <span class="sc">/</span> P_B</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">cat</span>(<span class="st">"Probability of P_A_B:"</span>, P_A_B, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Probability of P_A_B: 0.8016529</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Calculate the probability not_A|B using conditional probability formula</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>P_not_A_B <span class="ot">&lt;-</span> P_B_notA <span class="sc">*</span> not_P_A <span class="sc">/</span> P_B</span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">cat</span>(<span class="st">"Probability of P_not_A_B:"</span>, P_not_A_B, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Calculate the probability not_A|B using conditional probability formula</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>P_not_A_B <span class="ot">&lt;-</span> P_B_notA <span class="sc">*</span> not_P_A <span class="sc">/</span> P_B</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="fu">cat</span>(<span class="st">"Probability of P_not_A_B:"</span>, P_not_A_B, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Probability of P_not_A_B: 0.1983471</code></pre>
 </div>

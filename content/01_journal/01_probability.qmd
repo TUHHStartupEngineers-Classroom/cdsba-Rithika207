@@ -39,22 +39,6 @@ cat("Sum of probabilities:", sum_of_probabilites, "\n")
 
 ```
 
-```{r}
-# Given probabilities
-P_T <- 0.8
-P_T_NOT <- 0.2
-P_S <- 0.3
-P_S_NOT <- 0.7
-
-# Calculating probabilities
-P_T_AND_S <- P_T * P_S
-P_T_AND_S_NOT <- P_T * P_S_NOT
-P_T_NOT_AND_S <- P_T_NOT * P_S
-P_T_NOT_AND_S_NOT <- P_T_NOT * P_S_NOT
-
-
-```
-
 # Assignment 2
 ```{r}
 # Given probabilities

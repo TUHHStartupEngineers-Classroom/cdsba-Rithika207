@@ -1,7 +1,136 @@
 ---
 title: "Randomized Controlled Trials"
+author: "Rithika Rao Dodda"
+number-sections: false
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Assignment
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+# Load the file
+abtest_data <- readRDS("Causal_Data_Science_Data/abtest_online.rds")
+# Create Data Frame
+df1=data.frame(abtest_data)
+df<- data.frame(ip = abtest_data$ip, chatbot = abtest_data$chatbot)
+```
+
+1. Checking whether the covariates are balanced across the groups:
+```{r}
+ip = abtest_data$ip
+df$ip <- substr(ip, nchar(ip), nchar(ip))
+df$chatbot <- as.integer(as.logical(df$chatbot))
+df$ipn = as.numeric(df$ip)
+df1<- data.frame(ip = df$ipn, chatbot = df$chatbot)
+X <- tibble(df1)
+```
+```{r}
+# Define vector of sample sizes
+sss <- c(10, 50, 100, seq(500, 1000, 500))
+
+# Create empty lists to store average tables in
+avg_tbl_ip_lst <- list()
+avg_tbl_chatbot_lst <- list()
+tbl_sampled_lst <- list()
+
+# Iterate through sample sizes
+# ... for sample size in sample sizes ...
+for (ss in sss) {
+  # sample from population
+  X_sampled <- sample_n(X, ss)
+  
+  # perform random assignment
+  D <- rbinom(ss, 1, 0.5)
+  
+  # combine characteristics and assignment in one table
+  tbl_sampled <- X_sampled %>% mutate(treatment = D)
+  
+  # store in list
+  tbl_sampled_lst[[paste(ss)]] <- tbl_sampled
+  
+  # get average characteristics ...
+  # ... for ip
+  avg_tbl_ip <- tbl_sampled %>%
+    group_by(treatment) %>%
+    summarise(mean_ip = mean(ip)) %>% 
+    ungroup %>% 
+    add_column(sample_size = ss,
+               variable = "ip") %>% 
+    pivot_wider(names_from = treatment,
+                names_prefix = "D_",
+                values_from = mean_ip) %>% 
+    mutate(delta_abs = abs(D_1 - D_0),
+           delta_rel = delta_abs/D_0)
+  
+  # store table in list
+  avg_tbl_ip_lst[[paste(ss)]] <- avg_tbl_ip
+  
+  # ... for chatbot
+  avg_tbl_chatbot <- tbl_sampled %>%
+    group_by(treatment) %>%
+    summarise(mean_chatbot = mean(chatbot)) %>% 
+    ungroup %>% 
+    add_column(sample_size = ss,
+               variable = "chatbot") %>% 
+    pivot_wider(names_from = treatment,
+                names_prefix = "D_",
+                values_from = mean_chatbot) %>% 
+    mutate(delta_abs = abs(D_1 - D_0),
+           delta_rel = delta_abs/D_0)
+  
+  # store table in list
+  avg_tbl_chatbot_lst[[paste(ss)]] <- avg_tbl_chatbot
+}
+
+# Combine tables to one larger table
+avg_ip <- avg_tbl_ip_lst %>% bind_rows()
+avg_chatbot <- avg_tbl_chatbot_lst %>% bind_rows()
+avgs_tbl <- avg_ip %>% bind_rows(avg_chatbot)
+
+avgs_tbl
+```
+
+```{r}
+# Plot convergence
+ggplot(avgs_tbl, aes(x = sample_size, y = delta_abs)) +
+  geom_line() +
+  facet_wrap(~variable, scales = "free") +
+  labs(x = "Sample size", y = "Absolute difference") +
+  ggtitle("Absolute difference of characteristics\n between groups by sample size")
+```
+
+2. Running a regression to find the effect of chat bot on sales:
+```{r}
+df_reg<- data.frame(ip = X$ip, chatbot = X$chatbot, treatment = X$chatbot, outcome = avgs_tbl$delta_abs)
+```
+```{r}
+lm_reg <- lm(outcome ~ treatment, data = df_reg)
+summary(lm_reg)
+```
+
+3. Including interaction
+```{r}
+lm_mod <- lm(outcome ~ treatment * ip + treatment * chatbot, data = df_reg)
+summary(lm_mod)
+```
+
+4. Logistic regression
+```{r}
+model_logistic_reg <- glm(purchase ~ chatbot + mobile_device + previous_visit, data = abtest_data, family = "binomial")
+summary(model_logistic_reg)
+```
+
+```{r}
+# coefficient for chatbot
+coef_chatbot <- coef(model_logistic_reg)["chatbotTRUE"]
+```
+
+```{r}
+# Exponentiate the coefficient to get the odds ratio
+odds_ratio <- exp(coef_chatbot)
+
+cat("Odds Ratio for Chatbot:", odds_ratio, "\n")
+```

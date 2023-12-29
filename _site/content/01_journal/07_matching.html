@@ -188,7 +188,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#assignment" id="toc-assignment" class="nav-link active" data-scroll-target="#assignment">Assignment</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -216,6 +222,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<section id="assignment" class="level1">
+<h1>Assignment</h1>
 <div class="cell" data-hash="07_matching_cache/html/unnamed-chunk-1_b8cbbe41b28a1888c02d06d0a8bad960">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load packages</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -251,12 +259,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Draw DAG to understand the realtions between variables</li>
 </ol>
-<div class="cell" data-hash="07_matching_cache/html/unnamed-chunk-3_fdefd7aef3c772c471219f72896546ad">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Confounding variables are age, sex, prev_avg_purch</span></span>
+<div class="cell" data-hash="07_matching_cache/html/unnamed-chunk-3_36dc7990db06eb18952d4e5d74a876f7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Confounding variables are age, sex, pre_avg_purch</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>purchase<span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
-<span id="cb6-3"><a href="#cb6-3"></a>  card  <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> prev_avg_purch, sex <span class="sc">~</span> age , prev_avg_purch <span class="sc">~</span> sex, avg_purch <span class="sc">~</span> card ,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="at">coords =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="at">age =</span> <span class="dv">1</span>,<span class="at">sex =</span> <span class="dv">2</span>, <span class="at">prev_avg_purch =</span> <span class="dv">3</span>, <span class="at">card =</span> <span class="fl">1.5</span>, <span class="at">avg_purch =</span> <span class="fl">2.5</span>),</span>
-<span id="cb6-5"><a href="#cb6-5"></a>                      <span class="at">y =</span> <span class="fu">c</span>(<span class="at">age =</span> <span class="dv">1</span>,<span class="at">sex =</span> <span class="dv">1</span>, <span class="at">prev_avg_purch =</span> <span class="dv">1</span>, <span class="at">card =</span> <span class="dv">2</span>, <span class="at">avg_purch =</span> <span class="dv">2</span>)  )</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  card  <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> pre_avg_purch, sex <span class="sc">~</span> age , pre_avg_purch <span class="sc">~</span> sex, avg_purch <span class="sc">~</span> card ,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="at">coords =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="at">age =</span> <span class="dv">1</span>,<span class="at">sex =</span> <span class="dv">2</span>, <span class="at">pre_avg_purch =</span> <span class="dv">3</span>, <span class="at">card =</span> <span class="fl">1.5</span>, <span class="at">avg_purch =</span> <span class="fl">2.5</span>),</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                      <span class="at">y =</span> <span class="fu">c</span>(<span class="at">age =</span> <span class="dv">1</span>,<span class="at">sex =</span> <span class="dv">1</span>, <span class="at">pre_avg_purch =</span> <span class="dv">1</span>, <span class="at">card =</span> <span class="dv">2</span>, <span class="at">avg_purch =</span> <span class="dv">2</span>)  )</span>
 <span id="cb6-6"><a href="#cb6-6"></a>)</span>
 <span id="cb6-7"><a href="#cb6-7"></a></span>
 <span id="cb6-8"><a href="#cb6-8"></a><span class="fu">ggdag</span>(purchase, <span class="at">use_labels =</span> <span class="st">"name"</span>, <span class="at">text =</span> F) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -532,6 +540,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -883,7 +892,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"loop":true,"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":true,"selector":".lightbox","descPosition":"bottom","openEffect":"zoom"});</script>
 
 
 
